@@ -8,5 +8,5 @@ The current code focuses on dealing with the KaRIn during the fast-repeat phase.
 
 ## Get started 
 
-1. [This example shows how to do a quick visualization with the existing cross-swath bias removed.](examples/simple_visualization.ipynb)
-
+1. [This example shows how to do a quick visualization with the existing cross-swath bias removed.](examples/simple_visualization.ipynb). The following is an example output. 
+<img src="media/figures/ssha_karin_2_california.png" alt="Alt Text" width="200">
