@@ -28,6 +28,45 @@ import requests
 import json
 
 
+def plot_a_segment(ax,lon,lat,dat,title='',
+           vmin=-0.5,vmax=0.5):
+    """
+    Plot a segment of SWOT data on a map.
+
+    Args:
+        ax (matplotlib.axes.Axes): The axes object to plot the data on.
+        lon (numpy.ndarray): The longitude data.
+        lat (numpy.ndarray): The latitude data.
+        dat (numpy.ndarray): The data to plot.
+        title (str): Optional. The title of the plot.
+        vmin (float): Optional. The minimum value of the colorbar.
+        vmax (float): Optional. The maximum value of the colorbar.
+        
+    """
+    import cartopy.crs as ccrs
+    import cartopy.feature as cfeature
+    proj = ccrs.PlateCarree()
+    extent = [lon.min(),lon.max(), lat.min(),lat.max()]
+    # Add the scatter plot
+    lon=lon.flatten()
+    lat=lat.flatten()
+    im=ax.scatter(lon, lat, c=dat, s=1, cmap=plt.cm.bwr,
+               transform=ccrs.PlateCarree(),
+              vmin=vmin,vmax=vmax )
+    # Add the colorbar
+    cbar = plt.colorbar(im, ax=ax, orientation='vertical', 
+                        pad=0.02, aspect=40, shrink=0.8,
+                        extend='both' , label='meter')
+    ax.coastlines(resolution='10m')
+    ax.add_feature(cfeature.LAND, color='lightgrey')
+    ax.add_feature(cfeature.OCEAN, color='lightblue')
+    ax.add_feature(cfeature.RIVERS)
+    gl=ax.gridlines(draw_labels=True, dms=True, x_inline=False, y_inline=False)
+    gl.top_labels = gl.right_labels = False
+    ax.set_extent(extent, proj)
+    ax.set_title(title)
+    return
+
 def list_podaac_data(print_on_screen=True, title_keyword_include=None,keyword_exclude=None):
     """
     Find a list all of the PO.DAAC datasets available in the Common Metadata Repository (CMR).
