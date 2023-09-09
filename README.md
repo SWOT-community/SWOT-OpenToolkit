@@ -12,7 +12,9 @@ The current code focuses on dealing with the KaRIn during the fast-repeat phase.
 
     <img src="media/figures/ssha_karin_2_california.png" alt="Alt Text" width="200">
 
-1.  [This program finds and plot the science orbit crossing a specified bounding box](src/find_swot_passes_science.py). Run the program as follows:
+1.  [This program finds and plot the science orbit crossing a specified bounding box](src/find_swot_passes_science.py).
+
+     Run the program as follows:
 
 ```
    python find_swot_timing_science.py -sw_corner -130.0 35.0 -ne_corner -125.0 40.0 -output_filename /tmp/test.png
