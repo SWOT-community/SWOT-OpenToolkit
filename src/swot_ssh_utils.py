@@ -115,6 +115,7 @@ def init_S3FileSystem():
 def get_s3_urls(short_name, bounding_box, time_range):
     """
     Search granule S3 filenames
+    First written by Simon Liu and James Wood @PODAAC
     
     Parameters:
         short_name: str #unique identifier for a NASA dataset
