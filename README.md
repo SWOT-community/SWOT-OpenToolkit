@@ -1,6 +1,6 @@
 # SWOT-OpenToolkit
 
-⚠️ An open repository of community-contributed codes for processing SWOT data. Official project algorithms are not included. ⚠️
+⚠️ An open repository of community-contributed codes for processing SWOT data. Official project algorithms are not included.
 
 The current code focuses on dealing with the KaRIn during the fast-repeat phase. The following image is used to quick search the pass numbers that are relavent to regional interests. 
 
