@@ -46,7 +46,11 @@ def plot_a_segment(ax,lon,lat,dat,title='',
     import cartopy.crs as ccrs
     import cartopy.feature as cfeature
     proj = ccrs.PlateCarree()
-    extent = [lon.min(),lon.max(), lat.min(),lat.max()]
+    extent = [np.nanmin(lon),
+                np.nanmax(lon),
+                np.nanmin(lat),
+                np.nanmax(lat)]
+              
     # Add the scatter plot
     lon=lon.flatten()
     lat=lat.flatten()
