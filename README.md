@@ -13,7 +13,7 @@ The current code focuses on dealing with the KaRIn during the fast-repeat phase.
 ---
 ## Examples 
 
-1. [Remove cross-swath bias](examples/simple_visualization.ipynb). The following is an example output. 
+1. [Remove cross-swath bias in 2km-resolution ssha_Karin_2](examples/remove_crossswath_bias.ipynb). The following is an example output. 
 
     <img src="media/figures/ssha_karin_2_california.png" alt="Alt Text" width="200">
 
