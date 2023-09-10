@@ -16,15 +16,15 @@ The current code focuses on dealing with the KaRIn during the fast-repeat phase.
 
      Run the program as follows:
 
-```
-   python find_swot_timing_science.py -sw_corner -130.0 35.0 -ne_corner -125.0 40.0 -output_filename /tmp/test.png
-```
+   ```
+      python find_swot_timing_science.py -sw_corner -130.0 35.0 -ne_corner -125.0 40.0 -output_filename /tmp/test.png
+   ```
 
-   You will get something like the following figure. It contains the pass number, the satellite passing time (UTC) and the associated visualization. 
+      You will get something like the following figure. It contains the pass number, the satellite passing time (UTC) and the associated visualization. 
 
-<img src="media/figures/science_orbit_timing_example_quebec.png" alt="Alt Text" width="200">
+   <img src="media/figures/science_orbit_timing_example_quebec.png" alt="Alt Text" width="200">
 
-1.  [This program renders the sig0 at 250m that unveils an iceburg and sea ice in Wedell Sea](example/unsmoothed_sea_ice_250m.ipynb).
+1.  [This program renders the sig0 at 250m from the unsmoothed product showing an iceburg and sea ice in Wedell Sea](example/unsmoothed_sea_ice_250m.ipynb).
 
 <img src="media/figures/Unsmoothed_sig0_images/SWOT_L2_LR_SSH_Unsmoothed_486_005_20230409T233402_20230410T002508_PIA1_01.png" alt="sig0 over sea ice" width="200">
 
