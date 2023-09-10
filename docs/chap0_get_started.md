@@ -19,7 +19,7 @@ This handbook is designed for individuals who are new to analyzing these interme
 
 The handbook is organized as follows:
 
-- [Chapter 1 reviews the SWOT science products, with a focus on Level-2 SSH, and lists the associated technical documents.](chap1_product_review.md)
+- [Chapter 1 reviews the SWOT science products, with a focus on Level-2 SSH, and lists the associated technical documents.](chap1_product_overview.md)
 - [Chapter 2 provides information on data access from AVISO and PO.DAAC.](chap2_data_access.md)
 - [Chapter 3 includes examples of quick analyses of SWOT products, along with links to notebook tutorials](chap3_quick_examples.md).
 - [Chapter 4 explains the core code and algorithms used in this handbook, built by the community, as well as the science algorithm codes used by the project (work in progress).](chap4_codes_and_algorithms.md)
