@@ -3,7 +3,7 @@
 
 ⚠️ **Disclaimer: Community-Driven Effort** ⚠️
 
-Please note that this handbook is not officially endorsed by the Surface Water and Ocean Topography (SWOT) mission or any associated organizations. By sharing our research out in the **open**`**, I am hoping that the SWOT community can expedite the convergence of algorithsm as well as the future science returns of the mission in an unprecedented speed. While we strive for accuracy, the contents herein are subject to constant change and should be used as a guiding resource rather than an authoritative document. Please also consider yourself as the community that makes such rapid change and improvements.
+Please note that this handbook is not officially endorsed by the Surface Water and Ocean Topography (SWOT) mission or any associated organizations. By sharing our research out in the **open**, I am hoping that the SWOT community can expedite the convergence of algorithsm as well as the future science returns of the mission in an unprecedented speed. While we strive for accuracy, the contents herein are subject to constant change and should be used as a guiding resource rather than an authoritative document. Please also consider yourself as the community that makes such rapid change and improvements.
 
 ---
 
@@ -18,10 +18,10 @@ This handbook is designed for individuals who are new to analyzing these interme
 The handbook is organized as follows:
 
 - [Chapter 1 reviews the SWOT science products, with a focus on Level-2 SSH, and lists the associated technical documents.](chap1_product_review.md)
-- Chapter 2 provides information on data access from AVISO and PO.DAAC.
-- Chapter 3 includes examples of quick analyses of SWOT products, along with links to notebook tutorials in [this repository](https://github.com/podaac/SWOT-OpenToolkit).
-- Chapter 4 explains the core code and algorithms used in this handbook, built by the community, as well as the science algorithm codes used by the project (work in progress).
-- Chapter 5 presents preliminary results from the mission's calibration and validation efforts and the associated software.
-- Chapter 6 ensembles existing SWOT-oriented product and science algorithms and the links to the open-source codes.
+- [Chapter 2 provides information on data access from AVISO and PO.DAAC.](chap2_data_access.md)
+- [Chapter 3 includes examples of quick analyses of SWOT products, along with links to notebook tutorials](chap3_quick_examples.md).
+- [Chapter 4 explains the core code and algorithms used in this handbook, built by the community, as well as the science algorithm codes used by the project (work in progress).](chap4_codes_and_algorithms.md)
+- [Chapter 5 presents preliminary results from the mission's calibration and validation efforts and the associated software.](chap5_ocean_calval.md)
+- [Chapter 6 ensembles existing SWOT-oriented product and science algorithms and the links to the open-source codes.](chap6_community_opensource.md)
 
 Feel free to explore the chapters that are most relevant to your work. Remember that you are a part of the community. Please consider initiating or engaging discussions throught github `Issues`.
