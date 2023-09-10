@@ -12,9 +12,10 @@ The current code focuses on dealing with the KaRIn during the fast-repeat phase.
 
     <img src="media/figures/ssha_karin_2_california.png" alt="Alt Text" width="200">
 
-1. [This program renders the sig0 at 250m from the unsmoothed product showing an iceberg and sea ice in Wedell Sea](examples/unsmoothed_sea_ice_250m.ipynb).
+1. [This program renders the sig0 at 250m from the unsmoothed product showing an iceberg and sea ice in Weddell Sea](examples/unsmoothed_sea_ice_250m.ipynb).
 
-<img src="media/figures/Unsmoothed_sig0_images/SWOT_L2_LR_SSH_Unsmoothed_486_005_20230409T233402_20230410T002508_PIA1_01.png" alt="sig0 over sea ice" width="200">
+   <img src="media/figures/Unsmoothed_sig0_images/SWOT_L2_LR_SSH_Unsmoothed_486_005_20230409T233402_20230410T002508_PIA1_01.png" alt="sig0 over sea ice" width="200">
+   <img src="media/figures/worldview/snapshot-2023-04-09T00_00_00Z.png" alt="sig0 over sea ice" width="200">
 
 1. [This program finds and plot the science orbit crossing a specified bounding box](src/find_swot_passes_science.py).
 
@@ -27,3 +28,4 @@ The current code focuses on dealing with the KaRIn during the fast-repeat phase.
       You will get something like the following figure. It contains the pass number, the satellite passing time (UTC) and the associated visualization. 
 
    <img src="media/figures/science_orbit_timing_example_quebec.png" alt="Alt Text" width="200">
+
