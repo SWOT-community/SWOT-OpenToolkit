@@ -53,7 +53,3 @@ This Code of Conduct is adapted from the [Contributor Covenant](https://www.cont
 ---
 
 By participating in this project, you agree to abide by its terms. Thank you for contributing to the SWOT community handbook and making it a respectful and inclusive community.
-
-Jinbo Wang   
-PO.DAAC Project Scientist
-SWOT support scientist
