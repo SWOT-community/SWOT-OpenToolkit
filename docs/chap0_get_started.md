@@ -3,13 +3,11 @@
 
 ⚠️ **Disclaimer: Community-Driven Effort** ⚠️
 
-Please note that this handbook is not officially endorsed by the Surface Water and Ocean Topography (SWOT) mission or any associated organizations. By sharing our research out in the `open`, I am hoping that the SWOT community can expedite the convergence of algorithsm as well as the future science returns of the mission in an unprecedented speed. While we strive for accuracy, the contents herein are subject to constant change and should be used as a guiding resource rather than an authoritative document. Please also consider yourself as the community that makes such rapid change and improvements.
+Please note that this handbook is not officially endorsed by the Surface Water and Ocean Topography (SWOT) mission or any associated organizations. By sharing our research out in the **open**`**, I am hoping that the SWOT community can expedite the convergence of algorithsm as well as the future science returns of the mission in an unprecedented speed. While we strive for accuracy, the contents herein are subject to constant change and should be used as a guiding resource rather than an authoritative document. Please also consider yourself as the community that makes such rapid change and improvements.
 
 ---
 
 ## Introduction
-
----
 
 Launched on December 16, 2022, SWOT has successfully navigated through various critical phases, including deployment, instrument check-out, resolution of power outages, a fast-repeat 1-day calibration and validation stage, and an orbit transition to its 21-day repeat science orbit.
 
