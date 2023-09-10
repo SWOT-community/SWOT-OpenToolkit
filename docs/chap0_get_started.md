@@ -5,6 +5,8 @@
 
 Please note that this handbook is not officially endorsed by the Surface Water and Ocean Topography (SWOT) mission or any associated organizations. By sharing our research out in the **open**, I am hoping that the SWOT community can expedite the convergence of algorithsm as well as the future science returns of the mission in an unprecedented speed. While we strive for accuracy, the contents herein are subject to constant change and should be used as a guiding resource rather than an authoritative document. Please also consider yourself as the community that makes such rapid change and improvements.
 
+[CONTRIGUTING Document](../contrib/CONTRIBUTING.md) provides a guideline on contributing to this handbook. 
+
 ---
 
 ## Introduction
