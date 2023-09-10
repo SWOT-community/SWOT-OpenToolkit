@@ -24,3 +24,7 @@ The current code focuses on dealing with the KaRIn during the fast-repeat phase.
 
 <img src="media/figures/science_orbit_timing_example_quebec.png" alt="Alt Text" width="200">
 
+1.  [This program renders the sig0 at 250m that unveils an iceburg and sea ice in Wedell Sea](example/unsmoothed_sea_ice_250m.ipynb).
+
+<img src="media/figures/Unsmoothed_sig0_images/SWOT_L2_LR_SSH_Unsmoothed_486_005_20230409T233402_20230410T002508_PIA1_01.png" alt="sig0 over sea ice" width="200">
+
