@@ -1,9 +1,11 @@
 The following is a template for reporting issues as well as starting a new discussion. You do not need to include all of the sections but modify to fit your need.
 
 ---
-name: A Title (e.g., Bug Report)
-about: Create a report to help us improve
-labels: bug/discussion/new feature etc.
+
+name: A Title (e.g., Bug Report)  
+about: Create a report to help us improve  
+labels: bug/discussion/new feature etc.  
+
 ---
 
 ## Description
