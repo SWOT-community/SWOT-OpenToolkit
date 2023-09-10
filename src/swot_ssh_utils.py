@@ -28,6 +28,49 @@ import requests
 import json
 
 
+def plot_a_segment(ax,lon,lat,dat,title='',
+           vmin=-0.5,vmax=0.5):
+    """
+    Plot a segment of SWOT data on a map.
+
+    Args:
+        ax (matplotlib.axes.Axes): The axes object to plot the data on.
+        lon (numpy.ndarray): The longitude data.
+        lat (numpy.ndarray): The latitude data.
+        dat (numpy.ndarray): The data to plot.
+        title (str): Optional. The title of the plot.
+        vmin (float): Optional. The minimum value of the colorbar.
+        vmax (float): Optional. The maximum value of the colorbar.
+        
+    """
+    import cartopy.crs as ccrs
+    import cartopy.feature as cfeature
+    proj = ccrs.PlateCarree()
+    extent = [np.nanmin(lon),
+                np.nanmax(lon),
+                np.nanmin(lat),
+                np.nanmax(lat)]
+              
+    # Add the scatter plot
+    lon=lon.flatten()
+    lat=lat.flatten()
+    im=ax.scatter(lon, lat, c=dat, s=1, cmap=plt.cm.bwr,
+               transform=ccrs.PlateCarree(),
+              vmin=vmin,vmax=vmax )
+    # Add the colorbar
+    cbar = plt.colorbar(im, ax=ax, orientation='vertical', 
+                        pad=0.02, aspect=40, shrink=0.8,
+                        extend='both' , label='meter')
+    ax.coastlines(resolution='10m')
+    ax.add_feature(cfeature.LAND, color='lightgrey')
+    ax.add_feature(cfeature.OCEAN, color='lightblue')
+    ax.add_feature(cfeature.RIVERS)
+    gl=ax.gridlines(draw_labels=True, dms=True, x_inline=False, y_inline=False)
+    gl.top_labels = gl.right_labels = False
+    ax.set_extent(extent, proj)
+    ax.set_title(title)
+    return
+
 def list_podaac_data(print_on_screen=True, title_keyword_include=None,keyword_exclude=None):
     """
     Find a list all of the PO.DAAC datasets available in the Common Metadata Repository (CMR).
@@ -115,7 +158,6 @@ def init_S3FileSystem():
 def get_s3_urls(short_name, bounding_box, time_range):
     """
     Search granule S3 filenames
-    First written by Simon Liu and James Wood @PODAAC
     
     Parameters:
         short_name: str #unique identifier for a NASA dataset
@@ -586,33 +628,146 @@ def karin_error_correction(din):
     return din
     
     
-def fit_phase_bias(ssh):
+def fit_bias(ssh, cross_track_distance,
+                   tol=1e-4,order=2,
+                   iter_max=20,
+                   remove_along_track_polynomial=False,
+                   check_bad_point_threshold=0.6):
+    """
+    Parameters
+    ----------
+    ssh : xarray.DataArray
+        A 2D array of SSH data.
+    cross_track_distance : xarray.DataArray
+        A 2D array of cross-track distances 
+    tol : float, optional
+        Tolerance for the phase bias correction, by default 1e-4.
+    order : int, optional
+        Order of the polynomial to fit to the phase bias, by default 2.
+    remove_along_track_polynomial : bool, optional
+        Flag to remove the along-track polynomial from the SSH data, by default False.
+    check_bad_point_threshold : float, optional
+        Threshold for checking the percentage of bad points, 
+        larger than which the fitting will be skipped, by default 0.6.
+
+    The two arrays must have the same shape. Missing values are filled with NaNs.
+
+    Returns
+    -------
+    xarray.DataArray
+        A 2D array of the phase bias.
+
+    """
+
     from scipy.optimize import leastsq
     import numpy as np
 
-    def err(cc,x0,y0,p):
-        a,b,c=cc
-        return p - (a + b*x0 + c*x0**2)
+    #if remove_along_track_mean:
+    #    ssh -= np.nanmean(ssh,axis=0,keepdims=True)
 
-    def surface(cc,x0,y0):
-        a,b,c=cc
-        return a + b*x0 + c*x0**2 
+    def err(cc,x0,p,order):
+        if order == 2:
+            a,b,c=cc 
+            return p - (a + b*x0 + c*x0**2)
+        if order == 3:
+            a,b,c,d=cc
+            return p - (a + b*x0 + c*x0**2 + d*x0**3)
+
+    def surface(cc,x0,order):
+        if order==2:
+            a,b,c=cc 
+            return a + b*x0 + c*x0**2
+        if order==3:
+            a,b,c,d=cc
+            return a + b*x0 + c*x0**2 + d*x0**3
         
-    msk=np.isfinite(ssh.flatten())
-    ny,nx=ssh.shape
-    x,y=np.meshgrid(np.arange(nx),np.arange(ny))
+    def get_anomaly(ssha,distance,order):
+        msk=np.isfinite(ssha.flatten())
+        if msk.sum()<ssha.size*check_bad_point_threshold:
+            return np.zeros_like(ssha)
+        x=distance
+        xf=x.flatten()[msk]
+        pf=ssha.flatten()[msk]
+
+        cc = [0.0]*(order+1)
+        coef = leastsq(err,cc,args=(xf,pf,order))[0]
+        anomaly = err(coef,x,ssha,order)
+        
+        return anomaly 
     
-    xf=x.flatten()[msk]
+    cdis = np.nanmean(cross_track_distance,axis=0)/1e3
+    
+    
+    m1=cdis>0
+    m2=cdis<0
+
+    
+    ano = np.where(np.isfinite(ssh),np.zeros((ssh.shape)),np.nan)
+    ano[:,m1]=get_anomaly(ssh[:,m1],cross_track_distance[:,m1],order)
+    ano[:,m2]=get_anomaly(ssh[:,m2],cross_track_distance[:,m2],order)
+
+    for i in range(iter_max//2):
+        ano[:,m1]=get_anomaly(ano[:,m1],cross_track_distance[:,m1],order)
+        ano[:,m2]=get_anomaly(ano[:,m2],cross_track_distance[:,m2],order)
+        #ano = np.where(np.abs(ano)>6*np.nanstd(ano),np.nan,ano)
+    for i in range(iter_max//2):
+        ano[:,m1]=get_anomaly(ano[:,m1],cross_track_distance[:,m1],order)
+        ano[:,m2]=get_anomaly(ano[:,m2],cross_track_distance[:,m2],order)
+        ano = np.where(np.abs(ano-np.nanmean(ano))>5*np.nanstd(ano),np.nan,ano)
+
+    ano = np.where(np.isnan(ssh),np.nan,ano)
+    #mm = m1|m2
+    #ano[:,~mm]=np.nan
+    
+    if remove_along_track_polynomial:
+        y = np.arange(ssh.shape[0])[:,np.newaxis]*np.ones_like(ssh)
+        ano = fit_along_track_polynomial(y,ano)
+
+    return ano
+
+def fit_along_track_polynomial(y,din):
+    """
+    Computes the best-fit 2D surface of the form
+    p = a + by + cy^2 + d y^3
+    
+    The best-fit surface is determined by minimizing the sum 
+    of squared residuals between the functional surface and the input data.
+
+    Parameters
+    ----------
+    y : numpy.ndarray
+        A 2D array or a list of y-coordinates.
+    p : numpy.ndarray
+        A 2D array or a list of data values on (y) grid.
+
+    Returns
+
+    
+    """
+    
+    from scipy.optimize import leastsq
+    import numpy as np
+
+    def err(cc,y0,p):
+        a,b,c,d,e=cc
+        return p - (a + b*y0 + c*y0**2 + d*y0**3+e*y0**4)
+
+    def surface(cc,y0):
+        a,b,c,d,e=cc
+        return a + b*y0 + c*y0**2 + d*y0**3 + e*y0**4
+
+    msk=np.isfinite(din.flatten())
+    if msk.sum()<din.size/3:
+        return np.zeros_like(din)*np.nan
     yf=y.flatten()[msk]
-    pf=ssh.flatten()[msk]
+    dd=din.flatten()[msk]
+    cc = [1e-4,1e-6,1e-10,1e-10,1e-10]
 
-    cc = [pf.mean(),1,1e-3]
+    coef = leastsq(err,cc,args=(yf,dd))[0]
 
-    coef = leastsq(err,cc,args=(xf,yf,pf))[0]
-    vm = surface(coef,x,y) #mean surface
-    va = ssh - vm #anomaly
-    
-    return va,vm
+    anomaly = err(coef,y,din) #mean surface
+
+    return anomaly
 
 def fit2Dsurf(x,y,p,kind='linear'):
     """

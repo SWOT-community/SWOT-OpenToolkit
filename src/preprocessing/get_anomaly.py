@@ -16,6 +16,8 @@ Date: 04.05.2023
 
 import numpy as np
 import xarray as xr
+import sys
+sys.path.append('../')
 import swot_ssh_utils as swot_ssh
 import argparse
 
