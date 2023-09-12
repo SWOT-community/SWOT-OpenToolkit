@@ -11,13 +11,13 @@ Please note that this handbook is not officially endorsed by the Surface Water a
 
 ## Introduction
 
-Launched on December 16, 2022, SWOT has successfully navigated through various critical phases, including deployment, instrument check-out, resolution of power outages, a fast-repeat 1-day calibration and validation stage, and an orbit transition to its 21-day repeat science orbit.
+Launched on December 16, 2022, SWOT has successfully navigated through various critical phases, including deployment, instrument check-out, resolution of a power outage, a fast-repeat 1-day calibration and validation stage, and an orbit transition to its 21-day repeat science orbit.
 
-As the first mission of its kind, both the science data system and the algorithms are still under development, aiming to produce science-quality data. The process of calibration and validation remains an ongoing effort. At present, access to intermediate data products is restricted to select groups, specifically those involved in calibration, validation, science, and algorithm development.
+As the first mission of its kind, both the science data system and the algorithms are still under development at the time of the writing, aiming to produce science-quality data. The process of calibration and validation remains an ongoing effort. At present, access to intermediate data products is restricted to select groups, specifically those involved in calibration, validation, science, and algorithm development.
 
 This handbook is designed for individuals who are new to analyzing these intermediate products. Our aim is to expedite the journey toward well-calibrated and validated SWOT data products that can be utilized by the broader scientific community.
 
-The handbook is organized as follows:
+The handbook is organized as follows (most of them are empty at the moment):
 
 - [Chapter 1 reviews the SWOT science products, with a focus on Level-2 SSH, and lists the associated technical documents.](chap1_product_overview.md)
 - [Chapter 2 provides information on data access from AVISO and PO.DAAC.](chap2_data_access.md)

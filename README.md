@@ -10,8 +10,9 @@ The current code focuses on dealing with the KaRIn during the fast-repeat phase.
 ## Get started 
 
  - [A Handbook on level-2 SSH products](docs/chap0_get_started.md)
+ - [How to contribute](contrib/CONTRIBUTING.md)
 ---
-## Examples 
+## Quick Examples 
 
 1. [Remove cross-swath bias in 2km-resolution ssha_Karin_2](examples/remove_crossswath_bias.ipynb). The following is an example output. 
 
