@@ -37,4 +37,4 @@ The current code focuses on dealing with the KaRIn during the fast-repeat phase.
 
 1. [Plot the unsmoothed SSH (250m posting) near coast](https://github.com/SWOT-community/SWOT-OpenToolkit/blob/main/examples/unsmoothed_coastal.ipynb) 
 
-   <img src="media/figures/unsmoothed_SF_coast.png" alt="unsmoothed SSH" width="200">
+   <img src="media/figures/unsmoothed_SF_coast.png" alt="unsmoothed SSH" width="400">
