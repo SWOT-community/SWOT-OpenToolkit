@@ -26,7 +26,7 @@ import numpy as np
 import os,argparse
 
 #download the two shapefile associated with the SWOT orbit data from the aviso website
-if os.path.exists("sph_science_nadir.zip") is False or os.path.exists("sph_science_swath.zip") is False:
+if os.path.exists("../data/sph_science_nadir.zip") is False or os.path.exists("../data/sph_science_swath.zip") is False:
     print("Please download the two shapefiles associated with the SWOT orbit data from the aviso website using the included script.\n")
     print("bash download_swot_orbit_data.sh\n")
     exit()
@@ -59,7 +59,7 @@ def find_time(ID_PASS_value, extended_bbox):
     Returns:
     - int or None: Index of the first intersecting point, or None if no intersection is found.
     """
-    nadir_data = gpd.read_file("sph_science_nadir.zip")
+    nadir_data = gpd.read_file("../data/sph_science_nadir.zip")
 
     def join_linestrings(group):
         """Join LineStrings in the order they appear in the file."""
@@ -93,7 +93,7 @@ def find_time(ID_PASS_value, extended_bbox):
     return delta+pd.Timestamp("2023-07-21T05:33:45.768") 
 
 # Load the shapefile
-gdf_karin = gpd.read_file("sph_science_swath.zip")
+gdf_karin = gpd.read_file("../data/sph_science_swath.zip")
 # define the bounding box
 bbox = geometry.box(sw_corner[0], sw_corner[1], ne_corner[0], ne_corner[1])
 # extend the bounding box by 0.2 degree

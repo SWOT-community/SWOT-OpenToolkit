@@ -225,8 +225,17 @@ def get_mss22(longitude, latitude):
     m = np.isnan(longitude * latitude).flatten()
 
     # Open the MSS22 dataset
-    mss = open_dataset('/mnt/flow/swot/MSS/MSS_2022/mss_cls22_updated.grd')
-
+    # run a command using wget to download the MSS22 data and save to ../data folder
+    # The command looks like: wget -q --no-check-certificate https://topex.ucsd.edu/pub/MSS_replace/mss_sio_32.1_WGS84.nc
+    
+    #check the existence of the file
+    import os
+    if not os.path.exists('../data/mss_sio_32.1_WGS84.nc'):
+        import subprocess
+        print('Downloading MSS22 data to ../data folder')
+        subprocess.run(['wget','-q','--no-check-certificate','https://topex.ucsd.edu/pub/MSS_replace/mss_sio_32.1_WGS84.nc','-P','../data'])
+        
+    mss = open_dataset('../data/mss_sio_32.1_WGS84.nc') 
     # Select the MSS22 data within the range of input longitude and latitude
     mss_z = mss['z'].sel(lon=slice(lonmin, lonmax), lat=slice(latmin, latmax))
 
