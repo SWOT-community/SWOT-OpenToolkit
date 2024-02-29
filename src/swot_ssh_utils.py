@@ -26,7 +26,69 @@ import xarray as xr
 import numpy as np
 import requests
 import json
+import scipy.interpolate
 
+def interp_expert_to_unsmoothed(
+        expert_lon, expert_lat, expert_var, unsmoothed_lon, unsmoothed_lat):
+    """
+    Interpolates expert_var to unsmoothed grid
+
+    expert_lon, expert_lat, expert_var should be 2D numpy mask arrays read in
+    from the Expert product
+
+    unsmoothed_lon, unsmoothed_lat should be 2D numpy mask arrays read in
+    from the Unsmoothed product
+
+    Here is an example:
+    fp_exp = netCDF4.Dataset(expert_file)
+    fp_un = netCDF4.Dataset(unsmoothed_file)
+
+    expert_lon = fp_exp['longitude'][:]
+    expert_lat = fp_exp['latitude'][:]
+    expert_var = fp_exp['swh_model'][:]
+    unsmoothed_lon = fp_un['left']['longitude'][:]
+    unsmoothed_lat = fp_un['left']['longitude'][:]
+
+    unsmoothed_var = swot_ssh_utils.interp_expert_to_unsmoothed(
+            expert_lon, expert_lat, expert_var, unsmoothed_lon, unsmoothed_lat)
+
+    Author (s): Alex Fore
+    """
+    if not (np.ma.isMaskedArray(expert_var) and
+            np.ma.isMaskedArray(expert_lon) and
+            np.ma.isMaskedArray(expert_lat)):
+        raise Exception((
+            "Please pass in expert_lon, expert_lat, and expert_var as numpy "
+            "mask arrays."))
+
+    if not (len(expert_var.shape) == 2 and
+            len(expert_lon.shape) == 2 and
+            len(expert_lat.shape) == 2):
+        raise Exception((
+            "Please pass in expert_lon, expert_lat, and expert_var as full "
+            "2D arrays as they are in the Expert file."))
+
+    mask = ~np.ma.getmaskarray(expert_var)
+    var_in = expert_var[mask].data
+    lon_in = expert_lon[mask].data
+    lat_in = expert_lat[mask].data
+
+    unsmoothed_mask = np.logical_and(
+        ~np.ma.getmaskarray(unsmoothed_lon),
+        ~np.ma.getmaskarray(unsmoothed_lat))
+
+    # Center longitude on median longitude
+    center_lon = np.median(lon_in)
+    lon_in -= center_lon
+    unsmoothed_lon_in = unsmoothed_lon[unsmoothed_mask] - center_lon
+
+    unsmoothed_var = np.ones(unsmoothed_lon.shape) * np.nan
+    unsmoothed_var[unsmoothed_mask] = scipy.interpolate.griddata(
+        (lon_in, lat_in), var_in,
+        (unsmoothed_lon_in, unsmoothed_lat[unsmoothed_mask]),
+        method='linear', fill_value=np.nan)
+
+    return unsmoothed_var
 
 def plot_a_segment(ax,lon,lat,dat,title='',
            vmin=-0.5,vmax=0.5):
