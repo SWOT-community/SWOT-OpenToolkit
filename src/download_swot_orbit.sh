@@ -3,6 +3,8 @@
 # Base directory to save the downloaded files
 BASE_SAVE_DIR="../data/"
 
+mkdir -p "$BASE_SAVE_DIR"
+
 # Declare an array of URLs to be downloaded
 URLS=(
     "https://www.aviso.altimetry.fr/fileadmin/documents/missions/Swot/sph_science_nadir.zip"
