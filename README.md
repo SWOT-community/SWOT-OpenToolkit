@@ -28,7 +28,7 @@ The current code focuses on dealing with the KaRIn during the fast-repeat phase.
      Run the program as follows:
 
    ```
-      python find_swot_timing_science.py -sw_corner -130.0 35.0 -ne_corner -125.0 40.0 -output_filename /tmp/test.png
+      python find_swot_passes_science.py -sw_corner -130.0 35.0 -ne_corner -125.0 40.0 -output_filename /tmp/test.png
    ```
 
       You will get something like the following figure. It contains the pass number, the satellite passing time (UTC) and the associated visualization. 

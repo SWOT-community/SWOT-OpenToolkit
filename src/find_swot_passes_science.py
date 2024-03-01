@@ -5,10 +5,10 @@ the size of the bounding box.
 
 Make sure download the two shapefile associated with the SWOT orbit data from the aviso website. You can use the included script to download the data.
 
-    bash download_swot_orbit_data.sh
+    bash download_swot_orbit.sh
 
 Usage:
-    python find_swot_timing_science.py -sw_corner -130.0 35.0 -ne_corner -125.0 40.0 -output_filename /tmp/test.png
+    python find_swot_passes_science.py -sw_corner -130.0 35.0 -ne_corner -125.0 40.0 -output_filename /tmp/test.png
 
 Author: Jinbo Wang
 Date: 2021-07-21
