@@ -10,7 +10,8 @@ Make sure download the two shapefile associated with the SWOT orbit data from th
 Create /tmp/ folder in desired directory
 
 Usage:
-    python3 find_swot_future_passes_science.py -sw_corner -74.520 42.740 -ne_corner -69.89 45.03 -output_filename ./tmp/test.png
+
+    python3 find_swot_future_passes_science.py -pass_no 22 -sw_corner -74.520 42.740 -ne_corner -69.89 45.03 -output_filename ./tmp/test.png
 
 Author: Elisa Friedmann and Fiona Bennitt - adapted from Jinbo Wang
 Date: 2024-11-01
@@ -30,7 +31,6 @@ import os,argparse
 import contextily as cx
 
 
-pass_no = '21'
 
 #download the two shapefile associated with the SWOT orbit data from the aviso website
 if os.path.exists("../data/sph_science_nadir.zip") is False or os.path.exists("../data/sph_science_swath.zip") is False:
@@ -40,22 +40,30 @@ if os.path.exists("../data/sph_science_nadir.zip") is False or os.path.exists(".
 
 #parse the command line arguments
 parser = argparse.ArgumentParser(description='Find the SWOT satellite fly-by time through a bounding box.')
+parser.add_argument('-pass_no', type=str, help='The pass number matching the current date (or back in time too)')
 parser.add_argument('-sw_corner', type=float, nargs=2, help='The southwest corner of the bounding box [lon, lat]')
 parser.add_argument('-ne_corner', type=float, nargs=2, help='The northeast corner of the bounding box [lon, lat]')
 parser.add_argument('-output_filename', type=str, help='The filename of the figure to save. e.g. test.png')
+
 args = parser.parse_args()
+pass_no = args.pass_no
 sw_corner = args.sw_corner
 ne_corner = args.ne_corner
 output_filename = args.output_filename
-print(output_filename)
+print('Pass Number: ', pass_no)
+print('Output Filename: ', output_filename)
 output_filepath = os.path.split(output_filename)[0]
 #print(output_filepath)
 
+
 #check the command line arguments
-if sw_corner is None or ne_corner is None or output_filename is None:
+if sw_corner is None or ne_corner is None or output_filename is None or pass_no is None:
     parser.print_help('Example: \n python find_swot_timing_science.py -sw_corner -130.0 35.0 -ne_corner -125.0 40.0 -output_filename ./tmp/test.png')
     exit()
-   
+
+#Change pass_no here to match current date (or back in time too!)
+pass_no = pass_no
+
 def find_time(ID_PASS_value, extended_bbox):
    
     """
