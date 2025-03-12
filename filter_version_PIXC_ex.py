@@ -62,19 +62,20 @@ def filterVersionPIXC(directories, outpath):
 
         print(f"There are {str(len(best_files))} best files in directory.")
 
-
         # Split filepath for naming json
-        pieces = dirs[0].split('/')
+        pieces = directory.split('/')
 
         # Write out best files as json
-        with open(os.path.join(outpath, pieces[5] + '_filtered.json'), 'w', encoding='utf-8') as f:
+        with open(os.path.join(outpath, pieces[-2] + '_filtered.json'), 'w', encoding='utf-8') as f:
             json.dump(best_files, f)
 
-        print(f"Wrote out the unique and most recently processed {str(len(best_files))} files to {outpath}{pieces[5]}_filtered.json")
+        print(f"Wrote out the unique and most recently processed {str(len(best_files))} files to {outpath}{pieces[5]}_filtered.json\n" )
 
-# Directories to filter    
-dirs = ['/path_to_data_download/']
-# Outpath for json
-out = '/path_out/'
+if __name__ == "__main__":
+    # Directories to filter    
+    dirs = ['/yourPath/file1',
+            '/yourPath/file2']
+    # Outpath for json
+    out = '/yourPath/'
 
-filterVersionPIXC(directories=dirs, outpath=out)
+    filterVersionPIXC(directories=dirs, outpath=out)
